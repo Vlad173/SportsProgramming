@@ -10,19 +10,8 @@
 
 using namespace std;
 
-int main()
+int greedy_algo(const string& n, const string& x)
 {
-    int t;
-    cin >> t;
-    forn(tt, t)
-    {
-        string n;
-        cin >> n;
-        long long xi = 1;
-        int min = INT_MAX; 
-        while (xi < N_MAX)
-        {
-            string x = to_string(xi);
             int i = 0, j = 0, count = 0;
             while (j < x.size())
             {
@@ -44,8 +33,24 @@ int main()
             }
             while (i++ < n.size())
                 ++count;
+            return count;
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    forn(tt, t)
+    {
+        string n;
+        cin >> n;
+        long long x = 1;
+        int min = INT_MAX; 
+        while (x < N_MAX)
+        {
+            int count = greedy_algo(n, to_string(x));
             min = std::min(min, count);
-            xi *= 2; 
+            x *= 2; 
         }
         cout << min << endl;
     }
