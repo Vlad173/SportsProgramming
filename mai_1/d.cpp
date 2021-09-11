@@ -7,13 +7,13 @@
  
 using namespace std;
 #define forn(i, n) for (int i = 0; i < n; ++i)
-
-vector<long long> hashes(string& str)
+ 
+vector<uint64_t> hashes(string& str)
 {
-    vector<long long> result(str.size());
-    long long p = 257;
+    vector<uint64_t> result(str.size());
+    uint64_t p = 29;
     result[0] = str[0] - 'a' + 1;
-    long long p_pow = 257;
+    int p_pow = 29;
     for (int i = 1; i < str.size(); ++i)
     {
         result[i] = result[i - 1] + (str[i] - 'a' + 1) * p_pow; 
@@ -21,12 +21,12 @@ vector<long long> hashes(string& str)
     }
     return result;  
 }
-
+ 
 int main()
 {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
-    map<string, vector<long long>> st;
+    map<string, vector<uint64_t>> st;
     int t;
     cin >> t;
     forn(tt, t)
@@ -37,7 +37,7 @@ int main()
         {
             string s;
             cin >> s;
-            vector<long long> h = hashes(s);
+            vector<uint64_t> h = hashes(s);
             st[s] = h;
         }
         else if (cmd == 2)
@@ -50,9 +50,13 @@ int main()
         {
             int k;
             cin >> k;
-            set<long long> prefix;
+            set<uint64_t> prefix;
             for (auto& i : st)
+            {
+                if (k > i.second.size())
+                    continue;
                 prefix.insert(i.second[k - 1]);
+            }
             cout << prefix.size() << '\n';
         }
     }
