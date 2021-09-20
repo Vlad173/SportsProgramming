@@ -47,7 +47,7 @@ int main()
     dp[0][0] = a[0][0];
     minn[0] = a[0][0];
     minm[0] = a[0][0];
-    // mind[0] = a[0][0];
+    mind[n - 1] = a[0][0];
 
     for (int i = 0; i < n; ++i)
     {
