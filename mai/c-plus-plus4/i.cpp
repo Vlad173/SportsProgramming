@@ -20,27 +20,32 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-	
-	ll n;
-	cin >> n;
-	ll a, m, k, mod;
-	ll m9 = 1e9 + 7;
-	cin >> a >> m >> k >> mod;
 
-	vector<ll> count(mod, 0);
-	for (ll i = 0; i < n; ++i){
-		++count[a];
-    	a = (a * m + k) % mod;
+	int n;
+	cin >> n;
+	string s1, s2;
+	for (int i = 0; i < n; ++i) {
+		cin >> s1 >> s2;
 	}
 	
-	ll ans = 0;
-	ll i = 0;
-	for (ll j = 0; j < mod; ++j) {
-		while (count[j] > 0) {
-			ans = (ans + ((i + 1)) * j) % m9;
-			++i;
-			--count[j];
+	cin >> s1 >> s2;
+
+	if (s1.size() < s2.size()) {
+		int diff = s2.size() - s1.size();
+		for (int i = 0; i < diff; ++i) {
+			s1 += '`';
 		}
+	}
+
+	if (s1.size() > s2.size()) {
+		int diff = s1.size() - s2.size();
+		for (int i = 0; i < diff; ++i) {
+			s2 += '`';
+		}
+	}
+	ll ans = 0;
+	for (int i = 0; i < s1.size(); ++i) {
+		ans += s2[i] - s1[i];
 	}
 	cout << ans << nl;
     return 0;

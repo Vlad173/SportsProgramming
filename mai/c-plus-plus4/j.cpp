@@ -15,33 +15,26 @@ typedef vector<vector<long long>> vvl;
 
 const char nl = '\n';
 
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-	
-	ll n;
-	cin >> n;
-	ll a, m, k, mod;
-	ll m9 = 1e9 + 7;
-	cin >> a >> m >> k >> mod;
 
-	vector<ll> count(mod, 0);
-	for (ll i = 0; i < n; ++i){
-		++count[a];
-    	a = (a * m + k) % mod;
-	}
-	
+	int n;
+	cin >> n;
+	vector<int> v(n);
+	for (int& i : v)
+		cin >> i;
+
+	sort(begin(v), end(v));
+
 	ll ans = 0;
-	ll i = 0;
-	for (ll j = 0; j < mod; ++j) {
-		while (count[j] > 0) {
-			ans = (ans + ((i + 1)) * j) % m9;
-			++i;
-			--count[j];
+	for (int i = 0; i < n - 2; ++i) {
+		for (int j = i + 1; j < n - 1; ++j) {
+			ans += lower_bound(begin(v) + j + 1, end(v), v[i] + v[j]) - begin(v) - j - 1;
 		}
 	}
+	
 	cout << ans << nl;
     return 0;
 }

@@ -15,31 +15,6 @@ typedef vector<vector<long long>> vvl;
 
 const char nl = '\n';
 
-ll my_pow(ll x, ll y, ll N) {
- 	if (y == 0) 
-		return 1;
-  	ll z = my_pow(x, y / 2, N);
-  	if (y % 2 == 0)
-    	return (z * z) % N;
-  	else
-    	return (x * z * z) % N;
-}
-
-//ll my_pow(ll n, ll m, ll mod)
-//{
-//    ll res = 1;
-//    ll number = n;
-//    ll count = 0;
-//    while (m > 0) {
-//        if (m % 2 == 1) {
-//			res = (res * number) % mod;
-//        }
-//		number = (number * number) % mod;
-//        m /= 2;
-//    }
-//    return res % mod;
-//}
-
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -47,8 +22,18 @@ int main() {
 	ll n, a0;
 	ll mod = 1e9 + 7;
 	cin >> n >> a0;
-
-	cout << (a0 * my_pow(5, n - 1, mod)) % mod << " ";
-	cout << (a0 * my_pow(5, n, mod)) % mod << nl;
+	
+	ll ai, max1 = -1, max2 = -1;	
+	for (int i = 1; i <= n; ++i) {
+		a0 = (a0 * 5) % mod;
+		if (a0 > max1) {
+			max2 = max1;
+			max1 = a0;
+		}
+		if (a0 > max2 && a0 < max1) {
+			max2 = a0;
+		}
+	}
+	cout << max2 << " " << max1 << nl;
     return 0;
 }

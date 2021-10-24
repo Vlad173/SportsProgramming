@@ -21,27 +21,27 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 	
-	ll n;
+	int n;
 	cin >> n;
-	ll a, m, k, mod;
-	ll m9 = 1e9 + 7;
-	cin >> a >> m >> k >> mod;
 
-	vector<ll> count(mod, 0);
-	for (ll i = 0; i < n; ++i){
-		++count[a];
-    	a = (a * m + k) % mod;
-	}
-	
-	ll ans = 0;
-	ll i = 0;
-	for (ll j = 0; j < mod; ++j) {
-		while (count[j] > 0) {
-			ans = (ans + ((i + 1)) * j) % m9;
-			++i;
-			--count[j];
+	multiset<int> l, r;
+	int x;
+	for (int i = 0; i < n; ++i) {
+		cin >> x;
+		if (l.empty() || x <= *--end(l)) {
+			l.insert(x);
+		} else {
+			r.insert(x);
 		}
+		if ((int)r.size() - (int)l.size() > 0) {
+			l.insert(*begin(r));
+			r.erase(begin(r));	
+		}
+		if ((int)l.size() - (int)r.size() > 1) {
+			r.insert(*--end(l));
+			l.erase(--end(l));
+		}
+		cout << *--end(l) << nl;
 	}
-	cout << ans << nl;
     return 0;
 }

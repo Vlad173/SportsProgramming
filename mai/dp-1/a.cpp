@@ -21,27 +21,20 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(0);
 	
-	ll n;
-	cin >> n;
-	ll a, m, k, mod;
-	ll m9 = 1e9 + 7;
-	cin >> a >> m >> k >> mod;
-
-	vector<ll> count(mod, 0);
-	for (ll i = 0; i < n; ++i){
-		++count[a];
-    	a = (a * m + k) % mod;
-	}
+	int n, k;
+	cin >> n >> k;
+	int mod = 1e9 + 7;
+	vector<int> dp(n + 1, 0);
 	
-	ll ans = 0;
-	ll i = 0;
-	for (ll j = 0; j < mod; ++j) {
-		while (count[j] > 0) {
-			ans = (ans + ((i + 1)) * j) % m9;
-			++i;
-			--count[j];
+	dp[0] = 1;
+	for (int i = 1; i <= n; ++i) {
+		for (int j = 1; j <= k; ++j) {
+			if (i - j >= 0) {
+				dp[i] = (dp[i] + dp[i - j]) % mod;
+			}
 		}
 	}
-	cout << ans << nl;
+
+	cout << dp[n] << nl;
     return 0;
 }
